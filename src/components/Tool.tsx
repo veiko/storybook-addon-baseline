@@ -5,9 +5,38 @@ import {
   WithTooltip,
   TooltipMessage,
 } from "storybook/internal/components";
-import { CheckIcon, TimeIcon, AlertIcon } from "@storybook/icons";
+import {
+  BaselineWidelyIcon,
+  BaselineNewlyIcon,
+  BaselineLimitedIcon,
+} from "./BaselineIcons";
 import { TOOL_ID, CHANNEL_EVENT } from "../constants";
 import type { BaselineStatus, BaselineResult } from "../types";
+
+// Generate documentation URL for each feature via MDN search API
+async function getFeatureUrl(featureId: string): Promise<string> {
+  try {
+    // Use MDN API to search for the feature
+    const searchQuery = encodeURIComponent(featureId);
+    const response = await fetch(
+      `https://developer.mozilla.org/api/v1/search/en-US?q=${searchQuery}&limit=1`,
+    );
+
+    // FIXME: this is only working some times, need a better approach
+    if (response.ok) {
+      const data = await response.json();
+      if (data.documents && data.documents.length > 0) {
+        const doc = data.documents[0];
+        return `https://developer.mozilla.org${doc.mdn_url}`;
+      }
+    }
+  } catch (error) {
+    console.warn(`Failed to fetch MDN URL for ${featureId}:`, error);
+  }
+
+  // fallback to MDN search URL
+  return `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(featureId)}`;
+}
 
 export const Tool = memo(function BaselineTool() {
   const [baselineData, setBaselineData] = useState<{
@@ -38,18 +67,88 @@ export const Tool = memo(function BaselineTool() {
         : "Baseline: Not in Baseline";
 
   const IconComponent =
-    status === "widely" ? CheckIcon : status === "newly" ? TimeIcon : AlertIcon;
+    status === "widely"
+      ? BaselineWidelyIcon
+      : status === "newly"
+        ? BaselineNewlyIcon
+        : BaselineLimitedIcon;
+
+  const [urls, setUrls] = useState<Record<string, string>>({});
+
+  // Generate URLs for all features
+  useEffect(() => {
+    if (results.length > 0) {
+      results.forEach(async (r) => {
+        if (!urls[r.id]) {
+          const url = await getFeatureUrl(r.id);
+          setUrls((prev) => ({ ...prev, [r.id]: url }));
+        }
+      });
+    }
+  }, [results, urls]);
 
   const tooltipContent =
     results.length > 0
-      ? results.map((r) => `${r.id}: ${r.baseline}`).join("\n")
-      : "No baseline features specified";
+      ? results.map((r) => {
+          const IconComponent =
+            r.baseline === "widely"
+              ? BaselineWidelyIcon
+              : r.baseline === "newly"
+                ? BaselineNewlyIcon
+                : BaselineLimitedIcon;
+          return {
+            text: `${r.id}: ${r.baseline}`,
+            icon: IconComponent,
+            url:
+              urls[r.id] ||
+              `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(r.id)}`,
+          };
+        })
+      : [];
 
   return (
     <WithTooltip
       placement="bottom"
       trigger="click"
-      tooltip={<TooltipMessage title={title} desc={tooltipContent} />}
+      tooltip={
+        <TooltipMessage
+          title={title}
+          desc={
+            tooltipContent.length > 0 ? (
+              <div>
+                {tooltipContent.map((item, index) => (
+                  <div
+                    key={index}
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "8px",
+                      marginBottom: "4px",
+                    }}
+                  >
+                    <item.icon />
+                    <a
+                      href={item.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{
+                        color: "inherit",
+                        textDecoration: "underline",
+                        cursor: "pointer",
+                      }}
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      {item.text}
+                    </a>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              "No baseline features specified"
+            )
+          }
+        />
+      }
     >
       <IconButton key={TOOL_ID} active={status !== "widely"} title={title}>
         <IconComponent />
