@@ -1,7 +1,7 @@
 import { addons } from "storybook/preview-api";
 import { CHANNEL_EVENT, PARAM_KEY } from "./constants";
 import { evaluate } from "./evaluate";
-import { collectSameOriginCssText, detectCssFeatures } from "./parsers/css-parser";
+import { collectCssText, detectCssFeatures } from "./parsers/css-parser";
 import { mapDetectedToFeatureIds } from "./parsers/feature-mapper";
 
 export const decorators = [
@@ -19,7 +19,7 @@ export const decorators = [
     // Auto-detect CSS after render (schedule after current frame to ensure styles are in DOM)
     setTimeout(async () => {
       try {
-        const css = collectSameOriginCssText();
+        const css = collectCssText();
         const detected = detectCssFeatures(css);
         const autoIds = mapDetectedToFeatureIds(detected);
         const finalIds = autoIds.length ? autoIds : manualFeatures;

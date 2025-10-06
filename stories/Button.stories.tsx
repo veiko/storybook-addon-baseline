@@ -55,6 +55,10 @@ export const Secondary: Story = {
   },
 };
 
+export const NoCss: Story = {
+  render: () => <div title="Button">Button</div>,
+};
+
 export const Large: Story = {
   args: {
     size: "large",

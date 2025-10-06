@@ -1,7 +1,7 @@
 import type { DetectedCssFeature } from "./css-parser";
 import snapshot from "../data/features.snapshot.json";
 
-// Build a fast lookup of available feature IDs from the snapshot
+// build a lookup of feature IDs from the snapshot
 const knownIds = new Set(Object.keys(snapshot as Record<string, string>));
 
 function kebab(str: string): string {

@@ -89,21 +89,27 @@ export const Tool = memo(function BaselineTool() {
 
   const tooltipContent =
     results.length > 0
-      ? results.map((r) => {
-          const IconComponent =
-            r.baseline === "widely"
-              ? BaselineWidelyIcon
-              : r.baseline === "newly"
-                ? BaselineNewlyIcon
-                : BaselineLimitedIcon;
-          return {
-            text: `${r.id}: ${r.baseline}`,
-            icon: IconComponent,
-            url:
-              urls[r.id] ||
-              `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(r.id)}`,
-          };
-        })
+      ? results
+          .sort((a, b) => {
+            // Sort by baseline status: none -> newly -> widely
+            const statusOrder = { none: 0, newly: 1, widely: 2 };
+            return statusOrder[a.baseline] - statusOrder[b.baseline];
+          })
+          .map((r) => {
+            const IconComponent =
+              r.baseline === "widely"
+                ? BaselineWidelyIcon
+                : r.baseline === "newly"
+                  ? BaselineNewlyIcon
+                  : BaselineLimitedIcon;
+            return {
+              text: `${r.id}: ${r.baseline}`,
+              icon: IconComponent,
+              url:
+                urls[r.id] ||
+                `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(r.id)}`,
+            };
+          })
       : [];
 
   return (
