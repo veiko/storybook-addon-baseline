@@ -26,10 +26,11 @@ export const decorators = [
         if (finalIds.length) {
           const res = evaluate(finalIds, params.target || { mode: 'widelyAvailable' });
           addons.getChannel().emit(CHANNEL_EVENT, { storyId: ctx.id, ...res });
+        } else {
+          if (manualFeatures.length) resultFromManual();
         }
       } catch (err) {
-        // eslint-disable-next-line no-console
-        console.warn('[baseline] detection error', err);
+        console.error('[baseline] Detection error:', err);
         if (manualFeatures.length) resultFromManual();
       }
     }, 0);

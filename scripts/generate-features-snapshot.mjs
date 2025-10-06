@@ -27,8 +27,14 @@ async function main() {
   for (const [id, f] of featureEntries) {
     if (!f || !id) continue;
     const status = f.status ?? {};
-    const baseline = status.baseline ?? status.baselineStatus ?? null;
-    snapshot[id] = baseline === 'widely' || baseline === 'newly' ? baseline : 'none';
+    const baseline = status.baseline;
+    if (baseline === 'high') {
+      snapshot[id] = 'widely';
+    } else if (baseline === 'low') {
+      snapshot[id] = 'newly';
+    } else {
+      snapshot[id] = 'none';
+    }
   }
 
   const outPath = resolve('src/data/features.snapshot.json');
