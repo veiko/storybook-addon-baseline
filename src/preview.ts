@@ -16,7 +16,8 @@ export const decorators = [
 
     const el = Story();
 
-    // Auto-detect CSS after render (schedule after current frame to ensure styles are in DOM)
+    // auto-detect CSS after render
+    // schedule after current frame to ensure styles are in DOM
     setTimeout(async () => {
       try {
         const css = collectCssText();

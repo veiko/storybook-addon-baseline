@@ -13,31 +13,6 @@ import {
 import { TOOL_ID, CHANNEL_EVENT } from "../constants";
 import type { BaselineStatus, BaselineResult } from "../types";
 
-// Generate documentation URL for each feature via MDN search API
-async function getFeatureUrl(featureId: string): Promise<string> {
-  try {
-    // Use MDN API to search for the feature
-    const searchQuery = encodeURIComponent(featureId);
-    const response = await fetch(
-      `https://developer.mozilla.org/api/v1/search/en-US?q=${searchQuery}&limit=1`,
-    );
-
-    // FIXME: this is only working some times, need a better approach
-    if (response.ok) {
-      const data = await response.json();
-      if (data.documents && data.documents.length > 0) {
-        const doc = data.documents[0];
-        return `https://developer.mozilla.org${doc.mdn_url}`;
-      }
-    }
-  } catch (error) {
-    console.warn(`Failed to fetch MDN URL for ${featureId}:`, error);
-  }
-
-  // fallback to MDN search URL
-  return `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(featureId)}`;
-}
-
 export const Tool = memo(function BaselineTool() {
   const [baselineData, setBaselineData] = useState<{
     status: BaselineStatus;
@@ -80,7 +55,8 @@ export const Tool = memo(function BaselineTool() {
     if (results.length > 0) {
       results.forEach(async (r) => {
         if (!urls[r.id]) {
-          const url = await getFeatureUrl(r.id);
+          // TODO: better urls
+          const url = `https://developer.mozilla.org/en-US/search?q=${encodeURIComponent(r.id)}`;
           setUrls((prev) => ({ ...prev, [r.id]: url }));
         }
       });

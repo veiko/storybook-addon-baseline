@@ -26,4 +26,4 @@ jobs:
 
       - name: Build Storybook
         run: |
-          npm run build-storybook
+          npm run build:storybook

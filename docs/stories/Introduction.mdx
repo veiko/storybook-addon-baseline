@@ -1,0 +1,40 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Storybook Baseline Addon" />
+
+# Storybook Baseline Addon
+
+A Storybook addon that shows Baseline compatibility badges for web features used in your stories.
+
+## Features
+
+- Automatically detects CSS features used in your stories
+- Shows whether features are "widely", "newly", or not in baseline
+- Clickable links to MDN documentation for each feature
+- Clear icons and status indicators in the Storybook toolbar
+
+## Installation
+
+```bash
+npm i storybook-addon-baseline
+```
+
+## Configuration
+
+Add the addon to your `.storybook/main.js`:
+
+```js
+export default {
+  addons: [
+    'storybook-addon-baseline'
+  ]
+};
+```
+
+## Usage
+
+The addon automatically detects CSS features in your stories and displays their baseline compatibility status. No additional configuration is required!
+
+## Examples
+
+Check out the examples below to see the addon in action with different CSS features.
