@@ -4775,9 +4775,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"storybook-addon-baseline@workspace:.":
+"storybook-baseline@workspace:.":
   version: 0.0.0-use.local
-  resolution: "storybook-addon-baseline@workspace:."
+  resolution: "storybook-baseline@workspace:."
   dependencies:
     "@storybook/addon-docs": "npm:^9.1.0"
     "@storybook/icons": "npm:^1.4.0"

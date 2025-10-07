@@ -1,10 +1,14 @@
 import { Meta } from '@storybook/addon-docs/blocks';
 
-<Meta title="Storybook Baseline Addon" />
+<Meta title="Baseline Addon/Introduction" />
 
 # Storybook Baseline Addon
 
-A Storybook addon that shows Baseline compatibility badges for web features used in your stories.
+A Storybook addon that shows Baseline compatibility badges for web features used in your stories, helping you make informed decisions about browser compatibility.
+
+## What is Baseline?
+
+[Baseline](https://web.dev/baseline/) is a web standards project that provides information about when web features became stable enough for production use. It helps developers understand which CSS features are safe to use across different browsers.
 
 ## Features
 
@@ -16,7 +20,7 @@ A Storybook addon that shows Baseline compatibility badges for web features used
 ## Installation
 
 ```bash
-npm i storybook-addon-baseline
+npm i storybook-baseline
 ```
 
 ## Configuration
@@ -26,15 +30,30 @@ Add the addon to your `.storybook/main.js`:
 ```js
 export default {
   addons: [
-    'storybook-addon-baseline'
+    'storybook-baseline'
   ]
 };
 ```
 
 ## Usage
 
-The addon automatically detects CSS features in your stories and displays their baseline compatibility status. No additional configuration is required!
+The addon automatically detects CSS features in your stories and displays their baseline compatibility status. You can also manually specify features using the `baseline.features` parameter:
 
-## Examples
+```js
+export default {
+  parameters: {
+    baseline: {
+      features: ['display', 'flex', 'grid', 'container']
+    }
+  }
+};
+```
 
-Check out the examples below to see the addon in action with different CSS features.
+## Demo Stories
+
+Explore these stories to see the addon in action with different CSS feature support levels:
+
+- **Widely Supported Features**: CSS features that are safe to use in production
+- **Newly Supported Features**: Modern CSS features with good browser support  
+- **Limited Support Features**: Experimental or cutting-edge CSS features
+- **Mixed Baseline Support**: Real-world examples combining different support levels

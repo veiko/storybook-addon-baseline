@@ -1,0 +1,78 @@
+.houdini-demo {
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.paint-worklet-box {
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  /* This would use a paint worklet in supporting browsers */
+  background-image: paint(custom-pattern);
+}
+
+.color-functions-demo {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.color-box {
+  flex: 1;
+  padding: 20px;
+  border-radius: 6px;
+  text-align: center;
+  color: white;
+  font-weight: 600;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lab-color {
+  /* LAB color function - limited support */
+  background: lab(50% 20 -30);
+}
+
+.lch-color {
+  /* LCH color function - limited support */
+  background: lch(50% 30 200);
+}
+
+.anchor-demo {
+  position: relative;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  min-height: 120px;
+}
+
+.anchor-target {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background: #007bff;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.anchor-positioned {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: #dc3545;
+  color: white;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  /* This would use anchor positioning in supporting browsers */
+  position-anchor: --target;
+  inset-area: top;
+}

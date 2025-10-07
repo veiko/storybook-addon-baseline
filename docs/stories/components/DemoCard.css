@@ -1,0 +1,80 @@
+.demo-card {
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 16px 0;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.demo-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.demo-card-header h3 {
+  margin: 0;
+  color: #1a1a1a;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.baseline-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.baseline-badge.baseline-widely {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.baseline-badge.baseline-newly {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.baseline-badge.baseline-limited {
+  background: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.demo-description {
+  margin: 0 0 16px 0;
+  color: #666;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.demo-content {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 4px;
+  border: 1px dashed #dee2e6;
+}
+
+/* Baseline-specific styling */
+.demo-card.baseline-widely {
+  border-left: 4px solid #28a745;
+}
+
+.demo-card.baseline-newly {
+  border-left: 4px solid #ffc107;
+}
+
+.demo-card.baseline-limited {
+  border-left: 4px solid #dc3545;
+}

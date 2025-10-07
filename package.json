@@ -1,5 +1,5 @@
 {
-  "name": "storybook-addon-baseline",
+  "name": "storybook-baseline",
   "version": "0.0.1",
   "description": "A Storybook addon that shows Baseline compatibility badges for web features",
   "keywords": [

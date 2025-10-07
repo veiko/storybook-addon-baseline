@@ -1,5 +1,5 @@
 // id for the addon
-export const ADDON_ID = "storybook-addon-baseline";
+export const ADDON_ID = "storybook-baseline";
 // used to register the addon
 export const TOOL_ID = `${ADDON_ID}/tool`;
 // name of the parameter that will be used to configure the addon
